@@ -26,10 +26,13 @@
     .outline {
       -webkit-text-stroke: 3px black;
     }
-    .reveal img {
+    .reveal img.diagram {
       background-color: white !important;
       padding: 40px;
       border-radius: 15px;
+    }
+    .reveal p.source {
+      font-size: small;
     }
   </style>
 </head>
@@ -46,46 +49,46 @@
         </p>
       </section>
       <section>
-        <h2>What?</h2>
+        <h2>What is pointfree style?</h2>
       </section>
       <section>
-        <!-- TODO -->
+        <h3>Pointfree style</h3>
+        <blockquote>Never mention the data!</blockquote>
+      </section>
+      <section>
         <pre><code class="javascript" data-trim data-noescape>
           const mountains = [
-            { name: 'Mt. Everest', height: 0 },
-            { name: 'Mt. Everest', height: 0 },
-            { name: 'Mt. Everest', height: 0 },
+            { name: 'Mount Everest', height: 8848 },
+            { name: 'Mont Blanc', height: 4808 },
+            { name: 'Kazbek', height: 5033 },
           ];
         </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
           mountains.map(mountain => mountain.name);
         </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
           mountains.reduce(
               (result, mountain) => result + mountain.height, 0);
         </code></pre>
       </section>
       <section>
-        <h3>Welcom to a pointfree world!</h3>
+        <h3>Welcome to a pointfree world!</h3>
         <pre><code class="javascript" data-trim data-noescape>
           mountains.map(prop('name'));
         </code></pre>
-        <!-- TODO pipe here? -->
         <pre><code class="javascript" data-trim data-noescape>
           mountains.map(prop('height')).reduce(add, 0);
         </code></pre>
       </section>
       <section>
-        <!-- TODO -->
-        <h3>Pointfree style</h3>
-        <blockquote>Never mention the data</blockquote>
+        <h1>Why go pointfree?</h1>
       </section>
       <section>
-        <h1>Why?</h1>
-      </section>
-      <section>
-        <!-- TODO -->
-        Something...
+        <div class="display: grid; grid-template-columns: auto auto; padding: 10px">
+          <img src="img/sumo.jpg" />
+          <img class="fragment" data-fragment-index="2" src="img/About+me.jpg" width="500px" />
+          <img class="fragment" data-fragment-index="1" src="img/blog.png" />
+        </div>
       </section>
 <!--Toolbox-->
       <section>
@@ -109,12 +112,12 @@
         </code></pre>
       </section>
       <section>
-        <h2>Every function is a single-argument function!</h2>
+        <h2>Every function is<br />a single-argument function!</h2>
       </section>
       <section data-background-image="./img/curry.jpg"></section>
       <section>
-        <!-- TODO -->
-        Haskell Curry slide
+        <h3><span class="fragment">Haskell</span> Curry</h3>
+        <img src="img/HaskellBCurry.jpg" />
       </section>
       <section>
         <h3>Currying</h3>
@@ -136,7 +139,9 @@
       <section>
         <h3>Currying with Ramda</h3>
         <pre><code class="javascript" data-trim data-noescape>
-            const multiply = R.curry((a, b) => a * b);
+            import {curry} from 'ramda';
+
+            const multiply = curry((a, b) => a * b);
 
             numbers.map(multiply(2));
         </code></pre>
@@ -158,21 +163,21 @@
       <section>
         <h3>Order of parameters matters!</h3>
         <pre><code class="javascript" data-trim data-noescape>
-              const fetchPostCurried = R.curry(fetchPost);
+              const fetchPostCurried = curry(fetchPost);
               postIds.map(fetchPostCurried(user.secretKey));
           </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
               function fetchPost(<mark>postId, secret</mark>) {
                 // ...
               }
           </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
               function fetchPost(<mark>secret, postId</mark>) {
                 // ...
               }
           </code></pre>
       </section>
-      <section>
+      <!-- <section>
         <h3>Functional Dependency Injection</h3>
         <pre><code class="javascript" data-trim data-noescape>
             type FetchPostFn = (id: number) => Post;
@@ -181,20 +186,20 @@
               // ...
             }
         </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
-            const fetchPost = R.curry((secret, postId) => {
+        <pre><code class="fragment javascript" data-trim data-noescape>
+            const fetchPost = curry((secret, postId) => {
               // ...
             });
-            const getPostFromMemory = R.curry((posts, postId) => {
+            const getPostFromMemory = curry((posts, postId) => {
               return posts[postId];
             });
             </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
             renderPost(fetchPost(user.secretKey));
             renderPost(getPostFromMemory(testPosts));
             </code></pre>
-      </section>
-      <section>
+      </section> -->
+      <!-- <section>
         <h3>Partial application in <code>react-redux</code></h3>
         <pre><code class="javascript" data-trim data-noescape>
             const FilterLink = connect(
@@ -203,7 +208,7 @@
             )(Link);
           </code></pre>
         <small><a href="https://redux.js.org/api/compose">https://redux.js.org/api/compose</a></small>
-      </section>
+      </section> -->
       <section data-background-size="cover">
         <h2>Function composition</h2>
       </section>
@@ -214,7 +219,7 @@
       <section>
         <h3>Composing with Ramda</h3>
         <pre><code class="javascript" data-trim data-noescape>
-            const getIntValue = <mark>R.pipe</mark>(getValue, parseInt);
+            const getIntValue = <mark>pipe</mark>(getValue, parseInt);
         </code></pre>
       </section>
       <section>
@@ -226,15 +231,14 @@
                 &lt;input class="post-id" /&gt;
               &lt;/div&gt;
             </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
-            // TODO replace with relevant Ramda function
+        <pre><code class="fragment javascript" data-trim data-noescape>
             function limit(x) {
               return Math.max(Math.min(x, 100), 0);
             }
 
             function fetchPost(id) { /* ... */ }
           </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
+        <pre><code class="fragment javascript" data-trim data-noescape>
             const inputs = Array.from(
               document.getElementsByClassName('post-id'));
 
@@ -242,24 +246,24 @@
         </code></pre>
       </section>
       <section>
-        <h3>Imperative <em>vs</em> pipe</h3>
         <pre><code class="javascript" data-trim data-noescape>
             inputs.map(input => fetchPost(limit(parseInt(input.value))));
-					</code></pre>
+        </code></pre>
+        <p><em>vs</em></p>
         <pre><code class="javascript" data-trim data-noescape>
-              inputs.map(R.pipe(
-                R.prop('value'),
+              inputs.map(pipe(
+                prop('value'),
                 parseInt,
-                limit,
+                clamp(0, 100),
                 fetchPost,
               ));
-            </code></pre>
+        </code></pre>
       </section>
       <section>
         <h3>Pipeline operator</h3>
         <pre><code class="javascript" data-trim data-noescape>
                 inputs.map(
-                  R.prop('value')
+                  prop('value')
                   <mark>|></mark> parseInt
                   <mark>|></mark> limit
                   <mark>|></mark> fetchPost
@@ -267,22 +271,22 @@
 					</code></pre>
         <p><a href="https://github.com/tc39/proposal-pipeline-operator">ESNext Proposal: The Pipeline Operator</a></p>
       </section>
-      <section>
+      <!-- <section>
         <h3>Composing operators in RxJS</h3>
-        <pre><code class="javascript" data-trim data-noescape>
+        <pre><code class="javascript" data-trim data-noescape style="font-size: smaller">
             const image$ = nameInput$.<mark>pipe</mark>(
               map(() => nameInputEl.value),
               filter(name => name.length >= 3),
               debounceTime(500),
-              mergeMap(name => from(fetch(`https://dog.ceo/api/breed/${name}/images/random`))),
-              mergeMap(response => from(response.json())),
+              mergeMap(name => 
+                fetch(`https://dog.ceo/api/breed/${name}/images/random`)),
+              mergeMap(response => response.json()),
               map(result => result.message)
             );
           </code></pre>
-      </section>
-      <section>
+      </section> -->
+      <!-- <section>
         <h3>Composing middleware in Redux</h3>
-        <!--TODO doczytać o tym-->
         <pre><code class="javascript" data-trim data-noescape>
             import { createStore, applyMiddleware, compose } from 'redux'
             import thunk from 'redux-thunk'
@@ -298,27 +302,99 @@
             );
         </code></pre>
         <small><a href="https://redux.js.org/api/compose">https://redux.js.org/api/compose</a></small>
-      </section>
-<!--Examples-->
+      </section> -->
+<!--Examples-->      
       <section>
         <h1>Pointfree in&nbsp;real&nbsp;life</h1>
       </section>
       <section>
-        <h3>Logging</h3>
+        <blockquote>Don’t confuse simplicity with familiarity</blockquote>
+        <p style="font-size: smaller; float: right; font-style: italic">Old chineese proverb</p>
+      </section>
+<!--Example: Reducers-->      
+      <section><h2>Redux Reducers</h2></section>
+      <section>
+        <h3>Regular Reducer</h3>
         <pre><code class="javascript" data-trim data-noescape>
-          function log(level, message) {
-            console.log(`[${level}] ${message}`);
-            // do some other stuff
-          }
-        </code></pre>
-        <pre><code class="fragment" class="javascript" data-trim data-noescape>
-          const logError = partial(log, [ 'ERROR' ]);
-          const logWarn = partial(log, [ 'WARN' ]);
-          const logInfo = partial(log, [ 'INFO' ]);
+            const postsRequestFinished = (state, payload) => {
+              return {
+                ...state,
+                posts: state.posts.concat(payload.posts),
+                isLoading: false,
+                paging: {
+                  ...state.paging,
+                  pageNumber: state.paging.pageNumber + 1
+                }
+              }
+            };
         </code></pre>
       </section>
       <section>
-        <h3>Redux reselect: state</h3>
+        <h3>Pointfree Reducer</h3>
+        <pre><code class="javascript" data-trim data-noescape>
+            const postsRequestFinished = (state, { posts }) => {
+              return evolve(
+                {
+                  posts: reverseConcat(posts),
+                  isLoading: always(false),
+                  paging: evolve({ pageNumber: inc })
+                },
+                state
+              );
+            };
+        </code></pre>
+      </section>
+<!--Example: RxJS-->
+      <section><h2>RxJS</h2></section>
+      <section>
+        <h3>Composing operators in RxJS</h3>
+        <pre><code class="javascript" data-trim data-noescape style="font-size: smaller">
+            const image$ = nameInput$.<mark>pipe</mark>(
+              map(() => nameInputEl.value),
+              filter(name => name.length >= 3),
+              debounceTime(500),
+              mergeMap(name => 
+                fetch(`https://dog.ceo/api/breed/${name}/images/random`)),
+              mergeMap(response => response.json()),
+              map(result => result.message)
+            );
+          </code></pre>
+      </section>
+      <section>
+        <h3>Pointfree RxJS</h3>
+        <pre><code class="javascript" data-trim data-noescape>
+            const nameInputElValue = () => nameInputEl.value;
+            const dogImageUrl = name => 
+              `https://dog.ceo/api/breed/${name}/images/random`;
+        </code></pre>
+        <pre><code class="fragment javascript" data-trim data-noescape>
+            const image$ = nameInput$.pipe(
+              map(nameInputElValue),
+              filter(pipe(length, gt(__, 3))),
+              debounceTime(500),
+              mergeMap(pipe(dogImageUrl, fetch.bind(window))),
+              mergeMap(response => response.json()),
+              map(prop('message'))
+            );
+        </code></pre>
+      </section>
+      <section>
+        <h3>Too pointfree?</h3>
+        <pre><code class="javascript" data-trim data-noescape>
+            const image$ = nameInput$.pipe(
+              map(nameInputElValue),
+              filter(pipe(length, gt(__, 3))),
+              debounceTime(500),
+              mergeMap(pipe(dogImageUrl, fetch.bind(window))),
+              <mark>mergeMap(invoker(0, 'json')),</mark>
+              map(prop('message'))
+            );
+        </code></pre>
+      </section>
+<!--Example: Reselect-->      
+      <section><h2>Redux Reselect</h2></section>
+      <section>
+        <h3>Redux Reselect: state</h3>
         <pre><code class="javascript" data-trim data-noescape>
           const state = {
             shop: {
@@ -332,50 +408,89 @@
         </code></pre>
       </section>
       <section>
-        <h3>Redux reselect: selectors</h3>
+        <h3>Redux Reselect: selectors</h3>
         <pre><code class="javascript" data-trim data-noescape>
           const shopItemsSelector = state => state.shop.items;
           const taxPercentSelector = state => state.shop.taxPercent;
-          
+        </code></pre>
+        <pre><code class="javascript fragment" data-trim data-noescape>
           const subtotalSelector = createSelector(
             shopItemsSelector,
             items => items.reduce((acc, item) => acc + item.value, 0)
           );
-          
+        </code></pre>
+        <pre><code class="javascript fragment" data-trim data-noescape>
           const taxSelector = createSelector(
             subtotalSelector,
             taxPercentSelector,
             (subtotal, taxPercent) => subtotal * (taxPercent / 100)
           );
         </code></pre>
+        <p class="source">
+          Based on code from: 
+          <a href="hhttps://github.com/reduxjs/reselect">
+            https://github.com/reduxjs/reselect
+          </a>
+        </p>
       </section>
       <section>
         <pre><code class="javascript" data-trim data-noescape>
           const shopItemsSelector = path(['shop', 'items']);
           const taxPercentSelector = path(['shop', 'taxPercent']);
         </code></pre>
-        <img src="img/JSPoland-path.png" />
+        <img class="diagram" src="img/JSPoland-path.png" />
       </section>
       <section>
         <pre><code class="javascript" data-trim data-noescape>
           const subtotalSelector = createSelector(
             shopItemsSelector,
-            reduce(useWith(add, [identity, prop('value')]), 0),
+            reduce(<mark>useWith</mark>(add, [identity, prop('value')]), 0),
           );
         </code></pre>
-        <img src="img/JSPoland-useWith1.png" />
+        <img class="diagram" src="img/JSPoland-useWith1.png" />
       </section>
       <section>
         <pre><code class="javascript" data-trim data-noescape>
           const taxSelector = createSelector(
             subtotalSelector,
             taxPercentSelector,
-            useWith(multiply, [identity, divide(__, 100)]),
+            <mark>useWith</mark>(multiply, [identity, divide(__, 100)]),
             );
         </code></pre>
-        <img src="img/JSPoland-useWith2.png" />
+        <img class="diagram" src="img/JSPoland-useWith2.png" />
       </section>
-      <!--TODO-->
+<!--Example: Too much pointfree-->
+      <section><h2>Pointfree gone too far...</h2></section>
+      <section>
+        <section>
+          <pre><code class="javascript" data-trim data-noescape>
+            const format = (actual, expected) => {
+              const variants = expected.join(‘, ‘);
+              return `Value ${actual} is not expected here. 
+                Possible variants are: ${variants}`;
+            }
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <pre><code class="javascript" data-trim data-noescape>
+          const format = converge(
+            unapply(join(' ')),
+            [
+              always('Value'),
+              nthArg(0),
+              always('is not expected here. Possible variants are:'),
+              compose(join(', '), nthArg(1))
+            ]
+          );
+        </code></pre>
+        <p class="source">
+          Example from: 
+          <a href="https://hackernoon.com/two-years-of-functional-programming-in-javascript-lessons-learned-1851667c726">
+            Two Years of Functional Programming in JavaScript: Lessons&nbsp;Learned
+          </a>
+        </p>
+      </section>
 <!--Summary-->
       <section>
         <h1>Wrapping up...</h1>
@@ -383,12 +498,17 @@
       <section>
         <h3>Why pointfree?</h3>
         <ul>
+          <li>conciceness (readability?)</li>
+          <li class="fragment">clearer algorithms - less clutter</li>
+          <li class="fragment">functions as generic building blocks</li>
         </ul>
       </section>
       <section>
-        <!--TODO-->
         <h3>Next steps</h3>
         <ul>
+          <li>Rewrite something!</li>
+          <li><code>ramda</code></li>
+          <li><code>lodash/fp</code></li>
         </ul>
       </section>
       <section>
@@ -397,7 +517,6 @@
           <small><a href="https://twitter.com/miloszpp">@miloszpp</a> / <a href="https://codewithstyle.info">codewithstyle.info</a>
             / <a href="https://miloszpiechocki.com">miloszpiechocki.com</a></small>
         </p>
-        <blockquote>Don’t confuse simplicity with familiarity</blockquote>
       </section>
     </div>
   </div>
