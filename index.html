@@ -34,6 +34,11 @@
     .reveal p.source {
       font-size: small;
     }
+    .reveal p.blockquote-source {
+      font-size: smaller; 
+      float: right; 
+      font-style: italic;
+    }
   </style>
 </head>
 
@@ -50,10 +55,6 @@
       </section>
       <section>
         <h2>What is pointfree style?</h2>
-      </section>
-      <section>
-        <h3>Pointfree style</h3>
-        <blockquote>Never mention the data!</blockquote>
       </section>
       <section>
         <pre><code class="javascript" data-trim data-noescape>
@@ -79,6 +80,10 @@
         <pre><code class="javascript" data-trim data-noescape>
           mountains.map(prop('height')).reduce(add, 0);
         </code></pre>
+      </section>
+      <section>
+        <h3>Pointfree style</h3>
+        <blockquote>Never mention the data!</blockquote>
       </section>
       <section>
         <h1>Why go pointfree?</h1>
@@ -122,14 +127,14 @@
       <section>
         <h3>Currying</h3>
         <pre><code class="javascript" data-trim data-noescape>
-            const multiply = a => b => a * b;
-        </code></pre>
-        <pre class="fragment"><code class="javascript" data-trim data-noescape>
             const multiply = (a) => {
               return (b) => {
                 return a * b;
               }
             };
+        </code></pre>
+        <pre class="fragment"><code class="javascript" data-trim data-noescape>
+            const multiply = a => b => a * b;
         </code></pre>
         <pre class="fragment"><code class="javascript" data-trim data-noescape>
             numbers.map(multiply(2));
@@ -146,7 +151,7 @@
             numbers.map(multiply(2));
         </code></pre>
       </section>
-      <section>
+      <!-- <section>
         <h3>Curried fetch</h3>
         <pre><code class="javascript" data-trim data-noescape>
             const postIds = [ 1, 2, 3, 4, 5 ];
@@ -176,7 +181,7 @@
                 // ...
               }
           </code></pre>
-      </section>
+      </section> -->
       <!-- <section>
         <h3>Functional Dependency Injection</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -222,7 +227,7 @@
             const getIntValue = <mark>pipe</mark>(getValue, parseInt);
         </code></pre>
       </section>
-      <section>
+      <!-- <section>
         <h3>Composing data flows</h3>
         <pre><code class="html" data-trim data-noescape>
             &lt;div id="app"&gt;
@@ -258,7 +263,7 @@
                 fetchPost,
               ));
         </code></pre>
-      </section>
+      </section> -->
       <section>
         <h3>Pipeline operator</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -309,10 +314,26 @@
       </section>
       <section>
         <blockquote>Don’t confuse simplicity with familiarity</blockquote>
-        <p style="font-size: smaller; float: right; font-style: italic">Old chineese proverb</p>
+        <p class="blockquote-source">Old Chineese proverb</p>
       </section>
 <!--Example: Reducers-->      
       <section><h2>Redux Reducers</h2></section>
+      <section>
+        <h3>Redux Reducers: state</h3>
+        <pre><code class="javascript" data-trim data-noescape>
+          const state = {
+            posts: [
+              { title: 'A', content: '' },
+              { title: 'B', content: '' },
+              { title: 'C', content: '' }
+            ],
+            isLoading: false,
+            paging: {
+              pageNumber: 5
+            }
+          };
+        </code></pre>
+      </section>
       <section>
         <h3>Regular Reducer</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -335,7 +356,7 @@
             const postsRequestFinished = (state, { posts }) => {
               return evolve(
                 {
-                  posts: reverseConcat(posts),
+                  posts: concat(posts),
                   isLoading: always(false),
                   paging: evolve({ pageNumber: inc })
                 },
@@ -378,7 +399,7 @@
             );
         </code></pre>
       </section>
-      <section>
+      <!-- <section>
         <h3>Too pointfree?</h3>
         <pre><code class="javascript" data-trim data-noescape>
             const image$ = nameInput$.pipe(
@@ -390,7 +411,7 @@
               map(prop('message'))
             );
         </code></pre>
-      </section>
+      </section> -->
 <!--Example: Reselect-->      
       <section><h2>Redux Reselect</h2></section>
       <section>
@@ -491,6 +512,14 @@
           </a>
         </p>
       </section>
+      <section>
+        <h3>Tools</h3>
+        <ul>
+          <li><code>ramda</code></li>
+          <li class="fragment"><code>lodash</code> - <code>curry</code>, <code>partial</code></li>
+          <li class="fragment"><code>lodash/fp</code></li>
+        </ul>
+      </section>
 <!--Summary-->
       <section>
         <h1>Wrapping up...</h1>
@@ -501,14 +530,6 @@
           <li>conciceness (readability?)</li>
           <li class="fragment">clearer algorithms - less clutter</li>
           <li class="fragment">functions as generic building blocks</li>
-        </ul>
-      </section>
-      <section>
-        <h3>Next steps</h3>
-        <ul>
-          <li>Rewrite something!</li>
-          <li><code>ramda</code></li>
-          <li><code>lodash/fp</code></li>
         </ul>
       </section>
       <section>
