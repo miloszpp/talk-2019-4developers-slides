@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>Stylish JavaScript with pointfree style</title>
+  <title>Stylish JavaScript with point-free style</title>
 
   <link rel="stylesheet" href="css/reveal.css">
   <link rel="stylesheet" href="css/theme/black.css">
@@ -47,14 +47,22 @@
     <div class="slides">
 <!--Introduction-->
       <section>
-        <h2>Stylish JavaScript with pointfree style</h2>
+        <h2>Stylish JavaScript with point-free style</h2>
         <p>Miłosz Piechocki</p>
         <p>
           <small><a href="https://twitter.com/miloszpp">@miloszpp</a></small>
         </p>
       </section>
       <section>
-        <h2>What is pointfree style?</h2>
+        <h2>Why?</h2>
+        <ul>
+          <li class="fragment">You're already using it</li>
+          <li class="fragment">Functional best-practice</li>
+          <li class="fragment">Pipeline operator</li>
+        </ul>
+      </section>
+      <section>
+        <h2>What?</h2>
       </section>
       <section>
         <pre><code class="javascript" data-trim data-noescape>
@@ -65,25 +73,21 @@
           ];
         </code></pre>
         <pre><code class="fragment javascript" data-trim data-noescape>
-          mountains.map(mountain => mountain.name);
-        </code></pre>
-        <pre><code class="fragment javascript" data-trim data-noescape>
-          mountains.reduce(
-              (result, mountain) => result + mountain.height, 0);
+          mountains.map(mountain => toLower(mountain));
         </code></pre>
       </section>
       <section>
-        <h3>Welcome to a pointfree world!</h3>
+        <h3>Welcome to a point-free world!</h3>
         <pre><code class="javascript" data-trim data-noescape>
-          mountains.map(prop('name'));
-        </code></pre>
-        <pre><code class="javascript" data-trim data-noescape>
-          mountains.map(prop('height')).reduce(add, 0);
+          mountains.map(toLower);
         </code></pre>
       </section>
       <section>
-        <h3>Pointfree style</h3>
+        <h3>Point-free style</h3>
         <blockquote>Never mention the data!</blockquote>
+        <pre><code class="fragment javascript" data-trim data-noescape>
+          mountains.map(<mark>mountain</mark> => toLower(<mark>mountain</mark>));
+        </code></pre>
       </section>
       <section>
         <div class="display: grid; grid-template-columns: auto auto; padding: 10px">
@@ -94,10 +98,12 @@
       </section>
 <!--Toolbox-->
       <section>
-        <h1>Pointfree toolbox</h1>
+        <h1>Point-free toolbox</h1>
+        <h1>🛠️</h1>
       </section>
       <section>
         <h2>Partial application</h2>
+        <h2>⚙️</h2>
       </section>
       <section>
         <h3>Example</h3>
@@ -148,7 +154,7 @@
             numbers.map(multiply(2));
         </code></pre>
       </section>
-      <!-- <section>
+      <section>
         <h3>Curried fetch</h3>
         <pre><code class="javascript" data-trim data-noescape>
             const postIds = [ 1, 2, 3, 4, 5 ];
@@ -178,8 +184,8 @@
                 // ...
               }
           </code></pre>
-      </section> -->
-      <!-- <section>
+      </section>
+      <section>
         <h3>Functional Dependency Injection</h3>
         <pre><code class="javascript" data-trim data-noescape>
             type FetchPostFn = (id: number) => Post;
@@ -200,8 +206,8 @@
             renderPost(fetchPost(user.secretKey));
             renderPost(getPostFromMemory(testPosts));
             </code></pre>
-      </section> -->
-      <!-- <section>
+      </section>
+      <section>
         <h3>Partial application in <code>react-redux</code></h3>
         <pre><code class="javascript" data-trim data-noescape>
             const FilterLink = connect(
@@ -210,13 +216,14 @@
             )(Link);
           </code></pre>
         <small><a href="https://redux.js.org/api/compose">https://redux.js.org/api/compose</a></small>
-      </section> -->
+      </section>
       <section data-background-size="cover">
         <h2>Function composition</h2>
+        <h2>🧩</h2>
       </section>
-      <section data-background-image="./img/composition-1.png" data-background-color="white" data-background-size="60%">
+      <section data-background-image="./img/composition-1.png" data-background-color="white" data-background-size="60%" data-transition="none">
       </section>
-      <section data-background-image="./img/composition-2.png" data-background-color="white" data-background-size="60%">
+      <section data-background-image="./img/composition-2.png" data-background-color="white" data-background-size="60%" data-transition="none">
       </section>
       <section>
         <h3>Composing with Ramda</h3>
@@ -224,7 +231,7 @@
             const getIntValue = <mark>pipe</mark>(getValue, parseInt);
         </code></pre>
       </section>
-      <!-- <section>
+      <section>
         <h3>Composing data flows</h3>
         <pre><code class="html" data-trim data-noescape>
             &lt;div id="app"&gt;
@@ -260,7 +267,7 @@
                 fetchPost,
               ));
         </code></pre>
-      </section> -->
+      </section>
       <section>
         <h3>Pipeline operator</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -273,7 +280,7 @@
 					</code></pre>
         <p><a href="https://github.com/tc39/proposal-pipeline-operator">ESNext Proposal: The Pipeline Operator</a></p>
       </section>
-      <!-- <section>
+      <section>
         <h3>Composing operators in RxJS</h3>
         <pre><code class="javascript" data-trim data-noescape style="font-size: smaller">
             const image$ = nameInput$.<mark>pipe</mark>(
@@ -286,8 +293,8 @@
               map(result => result.message)
             );
           </code></pre>
-      </section> -->
-      <!-- <section>
+      </section>
+      <section>
         <h3>Composing middleware in Redux</h3>
         <pre><code class="javascript" data-trim data-noescape>
             import { createStore, applyMiddleware, compose } from 'redux'
@@ -304,10 +311,11 @@
             );
         </code></pre>
         <small><a href="https://redux.js.org/api/compose">https://redux.js.org/api/compose</a></small>
-      </section> -->
+      </section>
 <!--Examples-->      
       <section>
-        <h1>Pointfree in&nbsp;real&nbsp;life</h1>
+        <h1>Point-free in&nbsp;real&nbsp;world</h1>
+        <h1>🌎</h1>
       </section>
       <section>
         <blockquote>Don’t confuse simplicity with familiarity</blockquote>
@@ -348,10 +356,10 @@
         </code></pre>
       </section>
       <section>
-        <h3>Pointfree Reducer</h3>
+        <h3>Point-free Reducer</h3>
         <pre><code class="javascript" data-trim data-noescape>
-            const postsRequestFinished = (state, { posts }) => {
-              return evolve(
+            const postsRequestFinished = (state, { posts }) =>
+              evolve(
                 {
                   posts: concat(posts),
                   isLoading: always(false),
@@ -359,27 +367,25 @@
                 },
                 state
               );
-            };
         </code></pre>
       </section>
 <!--Example: RxJS-->
       <section><h2>RxJS</h2></section>
       <section>
         <h3>Composing operators in RxJS</h3>
-        <pre><code class="javascript" data-trim data-noescape style="font-size: smaller">
-            const image$ = nameInput$.<mark>pipe</mark>(
+        <pre><code class="javascript" data-trim data-noescape>
+            const image$ = nameInput$.pipe(
               map(() => nameInputEl.value),
               filter(name => name.length >= 3),
               debounceTime(500),
               mergeMap(name => 
-                fetch(`https://dog.ceo/api/breed/${name}/images/random`)),
-              mergeMap(response => response.json()),
+                getJSON(`https://dog.ceo/api/breed/${name}/images/random`)),
               map(result => result.message)
             );
           </code></pre>
       </section>
       <section>
-        <h3>Pointfree RxJS</h3>
+        <h3>Point-free RxJS</h3>
         <pre><code class="javascript" data-trim data-noescape>
             const nameInputElValue = () => nameInputEl.value;
             const dogImageUrl = name => 
@@ -390,25 +396,11 @@
               map(nameInputElValue),
               filter(pipe(length, gt(__, 3))),
               debounceTime(500),
-              mergeMap(pipe(dogImageUrl, fetch.bind(window))),
-              mergeMap(response => response.json()),
+              mergeMap(pipe(dogImageUrl, getJSON)),
               map(prop('message'))
             );
         </code></pre>
       </section>
-      <!-- <section>
-        <h3>Too pointfree?</h3>
-        <pre><code class="javascript" data-trim data-noescape>
-            const image$ = nameInput$.pipe(
-              map(nameInputElValue),
-              filter(pipe(length, gt(__, 3))),
-              debounceTime(500),
-              mergeMap(pipe(dogImageUrl, fetch.bind(window))),
-              <mark>mergeMap(invoker(0, 'json')),</mark>
-              map(prop('message'))
-            );
-        </code></pre>
-      </section> -->
 <!--Example: Reselect-->      
       <section><h2>Redux Reselect</h2></section>
       <section>
@@ -477,8 +469,8 @@
         </code></pre>
         <img class="diagram" src="img/JSPoland-useWith2.png" />
       </section>
-<!--Example: Too much pointfree-->
-      <section><h2>Pointfree gone too far...</h2></section>
+<!--Example: Too much point-free-->
+      <section><h2>Point-less programming</h2></section>
       <section>
         <section>
           <pre><code class="javascript" data-trim data-noescape>
@@ -517,16 +509,28 @@
           <li class="fragment"><code>lodash/fp</code></li>
         </ul>
       </section>
+      <section>
+        <h3><code>lodash</code> vs <code>lodash/fp</code></h3>
+        <h4><code>lodash</code></h4>
+        <pre><code class="javascript" data-trim data-noescape>
+          map(mountains, toLower);
+        </code></pre>
+        <h4><code>lodash/fp</code></h4>
+        <pre><code class="javascript" data-trim data-noescape>
+          fp.map(toLower)(mountains);
+        </code></pre>
+        <a href="https://github.com/lodash/lodash/wiki/FP-Guide">https://github.com/lodash/lodash/wiki/FP-Guide</a>
+      </section>
 <!--Summary-->
       <section>
         <h1>Wrapping up...</h1>
       </section>
       <section>
-        <h3>Why pointfree?</h3>
+        <h3>To point-free or not to point-free?</h3>
         <ul>
-          <li>conciseness (readability?)</li>
-          <li class="fragment">clearer algorithms - less clutter</li>
-          <li class="fragment">functions as generic building blocks</li>
+          <li>Use when it simplifies code</li>
+          <li>Many opportunities to use in modern JS</li>
+          <li>Pipeline operator will be a game-changer</li>
         </ul>
       </section>
       <section>
