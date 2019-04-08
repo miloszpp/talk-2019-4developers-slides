@@ -26,17 +26,20 @@
     .outline {
       -webkit-text-stroke: 3px black;
     }
+
     .reveal img.diagram {
       background-color: white !important;
       padding: 40px;
       border-radius: 15px;
     }
+
     .reveal p.source {
       font-size: small;
     }
+
     .reveal p.blockquote-source {
-      font-size: smaller; 
-      float: right; 
+      font-size: smaller;
+      float: right;
       font-style: italic;
     }
   </style>
@@ -45,7 +48,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-<!--Introduction-->
+      <!--Introduction-->
       <section>
         <h2>Stylish JavaScript with point-free style</h2>
         <p>Miłosz Piechocki</p>
@@ -56,9 +59,9 @@
       <section>
         <h2>Why?</h2>
         <ul>
-          <li class="fragment">You're already using it</li>
-          <li class="fragment">Functional best-practice</li>
-          <li class="fragment">Pipeline operator</li>
+          <li class="fragment">You're already using it (probably)</li>
+          <li class="fragment">Functional Programming best-practice</li>
+          <li class="fragment">Pipeline operator is coming</li>
         </ul>
       </section>
       <section>
@@ -67,9 +70,9 @@
       <section>
         <pre><code class="javascript" data-trim data-noescape>
           const mountains = [
-            { name: 'Mount Everest', height: 8848 },
-            { name: 'Mont Blanc', height: 4808 },
-            { name: 'Kazbek', height: 5033 },
+            'Mount Everest',
+            'Mont Blanc',
+            'Kazbek',
           ];
         </code></pre>
         <pre><code class="fragment javascript" data-trim data-noescape>
@@ -96,7 +99,7 @@
           <img class="fragment" data-fragment-index="1" src="img/blog.png" />
         </div>
       </section>
-<!--Toolbox-->
+      <!--Toolbox-->
       <section>
         <h1>Point-free toolbox</h1>
         <h1>🛠️</h1>
@@ -185,12 +188,12 @@
               }
           </code></pre>
       </section>
-      <section>
+      <!-- <section>
         <h3>Functional Dependency Injection</h3>
         <pre><code class="javascript" data-trim data-noescape>
             type FetchPostFn = (id: number) => Post;
 
-            function renderPost(fetchPost: FetchPostFn, id) {
+            function renderPosts(fetchPost: FetchPostFn) {
               // ...
             }
         </code></pre>
@@ -203,10 +206,10 @@
             });
             </code></pre>
         <pre><code class="fragment javascript" data-trim data-noescape>
-            renderPost(fetchPost(user.secretKey));
-            renderPost(getPostFromMemory(testPosts));
+            renderPosts(fetchPost(user.secretKey));
+            renderPosts(getPostFromMemory(testPosts));
             </code></pre>
-      </section>
+      </section> -->
       <section>
         <h3>Partial application in <code>react-redux</code></h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -221,9 +224,11 @@
         <h2>Function composition</h2>
         <h2>🧩</h2>
       </section>
-      <section data-background-image="./img/composition-1.png" data-background-color="white" data-background-size="60%" data-transition="none">
+      <section data-background-image="./img/composition-1.png" data-background-color="white" data-background-size="60%"
+        data-transition="none">
       </section>
-      <section data-background-image="./img/composition-2.png" data-background-color="white" data-background-size="60%" data-transition="none">
+      <section data-background-image="./img/composition-2.png" data-background-color="white" data-background-size="60%"
+        data-transition="none">
       </section>
       <section>
         <h3>Composing with Ramda</h3>
@@ -312,7 +317,7 @@
         </code></pre>
         <small><a href="https://redux.js.org/api/compose">https://redux.js.org/api/compose</a></small>
       </section>
-<!--Examples-->      
+      <!--Examples-->
       <section>
         <h1>Point-free in&nbsp;real&nbsp;world</h1>
         <h1>🌎</h1>
@@ -321,8 +326,10 @@
         <blockquote>Don’t confuse simplicity with familiarity</blockquote>
         <p class="blockquote-source">Old Chineese proverb</p>
       </section>
-<!--Example: Reducers-->      
-      <section><h2>Redux Reducers</h2></section>
+      <!--Example: Reducers-->
+      <section>
+        <h2>Redux Reducers</h2>
+      </section>
       <section>
         <h3>Redux Reducers: state</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -369,8 +376,10 @@
               );
         </code></pre>
       </section>
-<!--Example: RxJS-->
-      <section><h2>RxJS</h2></section>
+      <!--Example: RxJS-->
+      <section>
+        <h2>RxJS</h2>
+      </section>
       <section>
         <h3>Composing operators in RxJS</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -401,8 +410,10 @@
             );
         </code></pre>
       </section>
-<!--Example: Reselect-->      
-      <section><h2>Redux Reselect</h2></section>
+      <!--Example: Reselect-->
+      <section>
+        <h2>Redux Reselect</h2>
+      </section>
       <section>
         <h3>Redux Reselect: state</h3>
         <pre><code class="javascript" data-trim data-noescape>
@@ -437,7 +448,7 @@
           );
         </code></pre>
         <p class="source">
-          Based on code from: 
+          Based on code from:
           <a href="hhttps://github.com/reduxjs/reselect">
             https://github.com/reduxjs/reselect
           </a>
@@ -469,8 +480,10 @@
         </code></pre>
         <img class="diagram" src="img/JSPoland-useWith2.png" />
       </section>
-<!--Example: Too much point-free-->
-      <section><h2>Point-less programming</h2></section>
+      <!--Example: Too much point-free-->
+      <section>
+        <h2>Point-less programming</h2>
+      </section>
       <section>
         <section>
           <pre><code class="javascript" data-trim data-noescape>
@@ -495,8 +508,9 @@
           );
         </code></pre>
         <p class="source">
-          Example from: 
-          <a href="https://hackernoon.com/two-years-of-functional-programming-in-javascript-lessons-learned-1851667c726">
+          Example from:
+          <a
+            href="https://hackernoon.com/two-years-of-functional-programming-in-javascript-lessons-learned-1851667c726">
             Two Years of Functional Programming in JavaScript: Lessons&nbsp;Learned
           </a>
         </p>
@@ -521,9 +535,10 @@
         </code></pre>
         <a href="https://github.com/lodash/lodash/wiki/FP-Guide">https://github.com/lodash/lodash/wiki/FP-Guide</a>
       </section>
-<!--Summary-->
+      <!--Summary-->
       <section>
         <h1>Wrapping up...</h1>
+        <h1>🌯</h1>
       </section>
       <section>
         <h3>To point-free or not to point-free?</h3>
@@ -534,10 +549,9 @@
         </ul>
       </section>
       <section>
-        <h1>Thanks</h1>
-        <p>
-          <small><a href="https://twitter.com/miloszpp">@miloszpp</a></small>
-        </p>
+        <h1>Thank you</h1>
+        <p><a href="https://twitter.com/miloszpp">@miloszpp</a></p>
+        <h1>🙏</h1>
         <h3>Want more?</h3>
         <p><a href="http://codewithstyle.info/pointfree">codewithstyle.info/pointfree</a></p>
       </section>
